@@ -4,6 +4,10 @@ class Player:
         self.team = dict['team']
         self.goals = dict['goals']
         self.assists = dict['assists']
+        self.nationality = dict['nationality']
     
+    def get_nationality(self):
+        return self.nationality
+
     def __str__(self):
         return f"{self.name} team {self.team} | goals {self.goals}, assists {self.assists}"
