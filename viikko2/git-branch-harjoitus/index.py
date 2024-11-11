@@ -11,13 +11,7 @@ y = int(input("luku 2: "))
 print(f"{summa(x, y)}")
 print(f"{erotus(x, y)}")
 
-<<<<<<< HEAD
 logger("lopetetaan ohjelma")
-<<<<<<< HEAD
-=======
 logger("lopetetaan ohjelma")
 print("goodbye!") # lisäys bugikorjaus-branchissa
->>>>>>> bugikorjaus
-=======
 print("goodbye!") # lisäys bugikorjaus-branchissa
->>>>>>> tulo
