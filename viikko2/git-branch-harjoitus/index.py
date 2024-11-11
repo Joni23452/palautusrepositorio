@@ -13,7 +13,11 @@ print(f"{erotus(x, y)}")
 
 <<<<<<< HEAD
 logger("lopetetaan ohjelma")
+<<<<<<< HEAD
 =======
 logger("lopetetaan ohjelma")
 print("goodbye!") # lisäys bugikorjaus-branchissa
 >>>>>>> bugikorjaus
+=======
+print("goodbye!") # lisäys bugikorjaus-branchissa
+>>>>>>> tulo
