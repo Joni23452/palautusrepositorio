@@ -49,6 +49,32 @@ Register With Username That Is Already In Use
     Submit Credentials
     Register Should Fail
 
+Login After Successful Registration
+    Set Username  jon
+    Set Password  abcd1234
+    Set Password Confirmation  abcd1234
+    Submit Credentials
+    Register Should Succeed
+    Go To Starting Page
+    Click Link  Login
+    Set Username  jon
+    Set Password  abcd1234
+    Click Login
+    Login Should Succeed
+
+Login After Failed Registration
+    Set Username  jo
+    Set Password  abcd1234
+    Set Password Confirmation  abcd1234
+    Submit Credentials
+    Register Should Fail
+    Go To Starting Page
+    Click Link  Login
+    Set Username  jo
+    Set Password  abcd1234
+    Click Login
+    Login Should Fail With Message  Invalid username or password
+
 *** Keywords ***
 Set Username
     [Arguments]  ${username}
@@ -65,6 +91,9 @@ Set Password Confirmation
 Submit Credentials
     Click Button  Register
 
+Click Login
+    Click Button  Login
+
 Register Should Succeed
     Welcome Page Should Be Open
 
@@ -75,3 +104,11 @@ Reset Application Create User And Go To Register Page
     Reset Application
     Create User  kalle  kalle123
     Go To Register Page
+
+Login Should Succeed
+    Main Page Should Be Open
+
+Login Should Fail With Message
+    [Arguments]  ${message}
+    Login Page Should Be Open
+    Page Should Contain  ${message}
