@@ -19,6 +19,7 @@ class Kayttoliittyma:
             Komento.NOLLAUS: Nollaus(self._sovelluslogiikka),
             Komento.KUMOA: Kumoa(self._sovelluslogiikka)
         }
+        self.viime_komento = Komento.NOLLAUS
 
     def kaynnista(self):
         self._arvo_var = StringVar()
@@ -83,27 +84,45 @@ class Kayttoliittyma:
 class Summa:
     def __init__(self, sovelluslogiikka):
         self._sovelluslogiikka = sovelluslogiikka
+        self.viimeisin_arvo = 0
 
     def suorita(self, arvo):
+        self.viimeisin_arvo = self._sovelluslogiikka.arvo()
         self._sovelluslogiikka.plus(arvo)
+
+    def kumoa(self):
+        self._sovelluslogiikka.aseta_arvo(self.viimeisin_arvo)
 
 class Erotus:
     def __init__(self, sovelluslogiikka):
         self._sovelluslogiikka = sovelluslogiikka
+        self.viimeisin_arvo = 0
 
     def suorita(self, arvo):
+        self.viimeisin_arvo = self._sovelluslogiikka.arvo()
         self._sovelluslogiikka.miinus(arvo)
+
+    def kumoa(self):
+        self._sovelluslogiikka.aseta_arvo(self.viimeisin_arvo)
 
 class Nollaus:
     def __init__(self, sovelluslogiikka):
         self._sovelluslogiikka = sovelluslogiikka
+        self.viimeisin_arvo = 0
 
     def suorita(self, arvo):
+        self.viimeisin_arvo = self._sovelluslogiikka.arvo()
         self._sovelluslogiikka.nollaa()
+
+    def kumoa(self):
+        self._sovelluslogiikka.aseta_arvo(self.viimeisin_arvo)
 
 class Kumoa:
     def __init__(self, sovelluslogiikka):
         self._sovelluslogiikka = sovelluslogiikka
 
     def suorita(self, arvo):
-        pass
+        self.viimeisin_arvo = self._sovelluslogiikka.arvo()
+        
+    def kumoa(self):
+        self._sovelluslogiikka.aseta_arvo(self.viimeisin_arvo)
