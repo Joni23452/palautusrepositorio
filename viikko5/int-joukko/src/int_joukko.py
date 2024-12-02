@@ -21,15 +21,6 @@ class IntJoukko:
         return n in self.ljono
 
     def lisaa(self, n):
-        ei_ole = 0
-
-        if self.koko == 0:
-            self.ljono[0] = n
-            self.kasvata_kokoa()
-            return True
-        else:
-            pass
-
         if not self.kuuluu(n):
             self.ljono[self.koko] = n
             self.kasvata_kokoa()
