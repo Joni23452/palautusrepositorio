@@ -23,22 +23,31 @@ class TennisGame:
         elif player_name == self.player2.get_name():
             self.player2.add_point()
 
+    def scores_equal(self, score1, score2):
+        return score1 == score2
+
+    def tied_at(self, score):
+        if score == 0:
+            return "Love-All"
+        elif score == 1:
+            return "Fifteen-All"
+        elif score == 2:
+            return "Thirty-All"
+        else:
+            return "Deuce"
+        
+    def in_overtime(self, score1, score2):
+        return score1 >= 4 or score2 >= 4
+
     def parse_game_score(self, player1_score, player2_score):
         score = ""
         temp_score = 0
         score1 = player1_score
         score2 = player2_score
 
-        if score1 == score2:
-            if score1 == 0:
-                score = "Love-All"
-            elif score1 == 1:
-                score = "Fifteen-All"
-            elif score1 == 2:
-                score = "Thirty-All"
-            else:
-                score = "Deuce"
-        elif score1 >= 4 or score2 >= 4:
+        if self.scores_equal(score1, score2):
+            score = self.tied_at(score1)
+        elif self.in_overtime(score1, score2):
             minus_result = score1 - score2
 
             if minus_result == 1:
