@@ -27,14 +27,9 @@ class IntJoukko:
 
             # ei mahdu enempää, luodaan uusi säilytyspaikka luvuille
             if self.koko % len(self.lista) == 0:
-                taulukko_old = self.lista
-                self.kopioi_lista(self.lista, taulukko_old)
+                vanha_lista = self.lista
                 self.lista = self._luo_lista(self.koko + self.kasvatuskoko)
-                self.kopioi_lista(taulukko_old, self.lista)
-
-            return True
-
-        return False
+                self.kopioi_lista(vanha_lista, self.lista)
 
     def poista(self, n):
         kohta = -1
