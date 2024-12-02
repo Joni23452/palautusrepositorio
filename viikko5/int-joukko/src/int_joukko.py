@@ -36,7 +36,7 @@ class IntJoukko:
         apu = 0
 
         for i in range(0, self.koko):
-            if n == self.lista[i]:
+            if self.lista[i] == n:
                 kohta = i  # siis luku löytyy tuosta kohdasta :D
                 self.lista[kohta] = 0
                 break
@@ -48,9 +48,6 @@ class IntJoukko:
                 self.lista[j + 1] = apu
 
             self.koko -= 1
-            return True
-
-        return False
 
     def kopioi_lista(self, a, b):
         for i in range(0, len(a)):
