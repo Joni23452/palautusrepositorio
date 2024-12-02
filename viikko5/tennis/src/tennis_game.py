@@ -38,47 +38,39 @@ class TennisGame:
         
     def in_overtime(self, score1, score2):
         return score1 >= 4 or score2 >= 4
+    
+    def overtime_score(self, score1, score2):
+        score_difference = score1 - score2
 
-    def parse_game_score(self, player1_score, player2_score):
-        score = ""
-        temp_score = 0
-        score1 = player1_score
-        score2 = player2_score
-
-        if self.scores_equal(score1, score2):
-            score = self.tied_at(score1)
-        elif self.in_overtime(score1, score2):
-            minus_result = score1 - score2
-
-            if minus_result == 1:
-                score = "Advantage player1"
-            elif minus_result == -1:
-                score = "Advantage player2"
-            elif minus_result >= 2:
-                score = "Win for player1"
-            else:
-                score = "Win for player2"
+        if score_difference == 1:
+            return "Advantage player1"
+        elif score_difference == -1:
+            return "Advantage player2"
+        elif score_difference >= 2:
+            return "Win for player1"
         else:
-            for i in range(1, 3):
-                if i == 1:
-                    temp_score = score1
-                else:
-                    score = score + "-"
-                    temp_score = score2
-
-                if temp_score == 0:
-                    score = score + "Love"
-                elif temp_score == 1:
-                    score = score + "Fifteen"
-                elif temp_score == 2:
-                    score = score + "Thirty"
-                elif temp_score == 3:
-                    score = score + "Forty"
-
-        return score
+            return "Win for player2"
+        
+    def player_score_to_text(self, score):
+        if score == 0:
+            return "Love"
+        elif score == 1:
+            return "Fifteen"
+        elif score == 2:
+            return "Thirty"
+        elif score == 3:
+            return "Forty"
+        
+    def game_score_to_text(self, score1, score2):
+        if self.scores_equal(score1, score2):
+            return self.tied_at(score1)
+        elif self.in_overtime(score1, score2):
+            return self.overtime_score(score1, score2)
+        else:
+            return self.player_score_to_text(score1) + "-" + self.player_score_to_text(score2)
 
     def get_score(self):
         player1_score = self.player1.get_player_score()
         player2_score = self.player2.get_player_score()
-        game_score = self.parse_game_score(player1_score, player2_score)
+        game_score = self.game_score_to_text(player1_score, player2_score)
         return game_score
