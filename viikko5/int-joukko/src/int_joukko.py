@@ -10,7 +10,7 @@ class IntJoukko:
         self.kapasiteetti = tarkista_syote(kapasiteetti)
         self.kasvatuskoko = tarkista_syote(kasvatuskoko)
 
-        self.ljono = self._luo_lista(self.kapasiteetti)
+        self.lista = self._luo_lista(self.kapasiteetti)
 
         self.koko = 0
 
@@ -18,19 +18,19 @@ class IntJoukko:
         self.koko += 1
 
     def kuuluu(self, n):
-        return n in self.ljono
+        return n in self.lista
 
     def lisaa(self, n):
         if not self.kuuluu(n):
-            self.ljono[self.koko] = n
+            self.lista[self.koko] = n
             self.kasvata_kokoa()
 
             # ei mahdu enempää, luodaan uusi säilytyspaikka luvuille
-            if self.koko % len(self.ljono) == 0:
-                taulukko_old = self.ljono
-                self.kopioi_lista(self.ljono, taulukko_old)
-                self.ljono = self._luo_lista(self.koko + self.kasvatuskoko)
-                self.kopioi_lista(taulukko_old, self.ljono)
+            if self.koko % len(self.lista) == 0:
+                taulukko_old = self.lista
+                self.kopioi_lista(self.lista, taulukko_old)
+                self.lista = self._luo_lista(self.koko + self.kasvatuskoko)
+                self.kopioi_lista(taulukko_old, self.lista)
 
             return True
 
@@ -41,16 +41,16 @@ class IntJoukko:
         apu = 0
 
         for i in range(0, self.koko):
-            if n == self.ljono[i]:
+            if n == self.lista[i]:
                 kohta = i  # siis luku löytyy tuosta kohdasta :D
-                self.ljono[kohta] = 0
+                self.lista[kohta] = 0
                 break
 
         if kohta != -1:
             for j in range(kohta, self.koko - 1):
-                apu = self.ljono[j]
-                self.ljono[j] = self.ljono[j + 1]
-                self.ljono[j + 1] = apu
+                apu = self.lista[j]
+                self.lista[j] = self.lista[j + 1]
+                self.lista[j + 1] = apu
 
             self.koko -= 1
             return True
@@ -68,7 +68,7 @@ class IntJoukko:
         taulu = self._luo_lista(self.koko)
 
         for i in range(0, len(taulu)):
-            taulu[i] = self.ljono[i]
+            taulu[i] = self.lista[i]
 
         return taulu
 
@@ -117,13 +117,13 @@ class IntJoukko:
         if self.koko == 0:
             return "{}"
         elif self.koko == 1:
-            return "{" + str(self.ljono[0]) + "}"
+            return "{" + str(self.lista[0]) + "}"
         else:
             tuotos = "{"
             for i in range(0, self.koko - 1):
-                tuotos = tuotos + str(self.ljono[i])
+                tuotos = tuotos + str(self.lista[i])
                 tuotos = tuotos + ", "
-            tuotos = tuotos + str(self.ljono[self.koko - 1])
+            tuotos = tuotos + str(self.lista[self.koko - 1])
             tuotos = tuotos + "}"
             return tuotos
 
