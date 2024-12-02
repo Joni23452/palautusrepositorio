@@ -23,21 +23,23 @@ class TennisGame:
         elif player_name == self.player2.get_name():
             self.player2.add_point()
 
-    def get_score(self):
+    def parse_game_score(self, player1_score, player2_score):
         score = ""
         temp_score = 0
+        score1 = player1_score
+        score2 = player2_score
 
-        if self.player1.get_player_score() == self.player2.get_player_score():
-            if self.player1.get_player_score() == 0:
+        if score1 == score2:
+            if score1 == 0:
                 score = "Love-All"
-            elif self.player1.get_player_score() == 1:
+            elif score1 == 1:
                 score = "Fifteen-All"
-            elif self.player1.get_player_score() == 2:
+            elif score1 == 2:
                 score = "Thirty-All"
             else:
                 score = "Deuce"
-        elif self.player1.get_player_score() >= 4 or self.player2.get_player_score() >= 4:
-            minus_result = self.player1.get_player_score() - self.player2.get_player_score()
+        elif score1 >= 4 or score2 >= 4:
+            minus_result = score1 - score2
 
             if minus_result == 1:
                 score = "Advantage player1"
@@ -50,10 +52,10 @@ class TennisGame:
         else:
             for i in range(1, 3):
                 if i == 1:
-                    temp_score = self.player1.get_player_score()
+                    temp_score = score1
                 else:
                     score = score + "-"
-                    temp_score = self.player2.get_player_score()
+                    temp_score = score2
 
                 if temp_score == 0:
                     score = score + "Love"
@@ -65,3 +67,9 @@ class TennisGame:
                     score = score + "Forty"
 
         return score
+
+    def get_score(self):
+        player1_score = self.player1.get_player_score()
+        player2_score = self.player2.get_player_score()
+        game_score = self.parse_game_score(player1_score, player2_score)
+        return game_score
