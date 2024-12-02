@@ -1,5 +1,4 @@
-OLETUSKAPASITEETTI = 5
-OLETUSKASVATUS = 5
+OLETUSSYOTE = 5
 
 
 class IntJoukko:
@@ -8,15 +7,8 @@ class IntJoukko:
         return [0] * koko
     
     def __init__(self, kapasiteetti=None, kasvatuskoko=None):
-        if kapasiteetti is None:
-            self.kapasiteetti = OLETUSKAPASITEETTI
-        else:
-            self.kapasiteetti = tarkista_syote(kapasiteetti)
-
-        if kasvatuskoko is None:
-            self.kasvatuskoko = OLETUSKASVATUS
-        else:
-            self.kasvatuskoko = tarkista_syote(kasvatuskoko)
+        self.kapasiteetti = tarkista_syote(kapasiteetti)
+        self.kasvatuskoko = tarkista_syote(kasvatuskoko)
 
         self.ljono = self._luo_lista(self.kapasiteetti)
 
@@ -151,7 +143,9 @@ class IntJoukko:
             return tuotos
 
 def tarkista_syote(syote):
-    if type(syote) != int or syote < 0:
+    if syote is None:
+        return OLETUSSYOTE
+    elif type(syote) != int or syote < 0:
         raise Exception("Väärä kapasiteetti")  # heitin vaan jotain :D
     else:
         return syote
