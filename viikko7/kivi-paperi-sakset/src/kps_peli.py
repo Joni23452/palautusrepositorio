@@ -1,11 +1,14 @@
-from kps_pelaaja_vs_pelaaja import KPSPelaajaVsPelaaja
-from kps_tekoaly import KPSTekoaly
-from kps_parempi_tekoaly import KPSParempiTekoaly
-
+from tuomari import Tuomari
 
 class KPSpeli:
-    def __init__(self):
-        pass
+    def aloita(self):
+        while True:
+            pelityyppi = self.valitse_pelityyppi()
+            from luo_peli import luo_peli
+            peli = luo_peli(pelityyppi)
+            if peli == "quit":
+                break
+            peli.pelaa()
     
     def valitse_pelityyppi(self):
         print("Valitse pelataanko"
@@ -18,35 +21,35 @@ class KPSpeli:
         vastaus = input()
         return vastaus
     
-    def luo_peli(self, tyyppi):
-        if tyyppi.endswith("a"):
-            print(
-                "Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s"
-            )
+    def pelaa(self):
+        tuomari = Tuomari()
 
-            kaksinpeli = KPSPelaajaVsPelaaja()
-            kaksinpeli.pelaa()
-        elif tyyppi.endswith("b"):
-            print(
-                "Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s"
-            )
+        print(
+            "Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s"
+        )
 
-            yksinpeli = KPSTekoaly()
-            yksinpeli.pelaa()
-        elif tyyppi.endswith("c"):
-            print(
-                "Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s"
-            )
+        ekan_siirto = self._ensimmaisen_siirto()
+        tokan_siirto = self._toisen_siirto(ekan_siirto)
 
-            haastava_yksinpeli = KPSParempiTekoaly()
-            haastava_yksinpeli.pelaa()
-        else:
-            return "quit"
+        while self._onko_ok_siirto(ekan_siirto) and self._onko_ok_siirto(tokan_siirto):
+            tuomari.kirjaa_siirto(ekan_siirto, tokan_siirto)
+            print(tuomari)
 
-    def aloita(self):
-        while True:
-            pelityyppi = self.valitse_pelityyppi()
-            peli = self.luo_peli(pelityyppi)
-            if peli == "quit":
-                break
+            ekan_siirto = self._ensimmaisen_siirto()
+            tokan_siirto = self._toisen_siirto(ekan_siirto)
+
+        print("Kiitos!")
+        print(tuomari)
+
+    def _ensimmaisen_siirto(self):
+        return input("Ensimmäisen pelaajan siirto: ")
+    
+    # tämän metodin toteutus vaihtelee eri pelityypeissä
+    def _toisen_siirto(self, ensimmaisen_siirto):
+        raise Exception("Tämä metodi pitää korvata aliluokassa")
+    
+    def _onko_ok_siirto(self, siirto):
+        return siirto == "k" or siirto == "p" or siirto == "s"
+        
+
             
